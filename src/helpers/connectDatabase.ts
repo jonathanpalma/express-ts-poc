@@ -3,12 +3,12 @@ import config from '../config';
 import logger from './logger';
 
 const { keys } = config;
-export const sequelize = new Sequelize(keys.databaseURI);
+const sequelize = new Sequelize(keys.databaseURI);
 
 let connectionRetries = 1;
 let reconnectionTimeout: NodeJS.Timeout;
 
-export async function connectDatabase(): Promise<void> {
+async function connectDatabase(): Promise<void> {
   try {
     clearTimeout(reconnectionTimeout);
     logger.info(`Trying to connect to the database at ${keys.databaseURI}.`);
@@ -24,3 +24,18 @@ export async function connectDatabase(): Promise<void> {
     reconnectionTimeout = setTimeout(connectDatabase, 5000);
   }
 }
+
+process.on('SIGINT', async () => {
+  try {
+    await sequelize.close();
+    logger.info(
+      'Sequelize default connection disconnected through app termination'
+    );
+  } catch (err) {
+    logger.error('Error trying to disconnect Sequelize default connection');
+  } finally {
+    process.exit();
+  }
+});
+
+export default connectDatabase;
