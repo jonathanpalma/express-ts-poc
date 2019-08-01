@@ -6,12 +6,18 @@ require('dotenv').config();
 
 export interface Config {
   env: string;
+  keys: {
+    databaseURI: string;
+  };
   loggerOptions: transports.ConsoleTransportOptions;
   port: number;
 }
 
 const commons = {
   env: process.env.NODE_ENV || 'development',
+  keys: {
+    databaseURI: process.env.DATABASE_URI || '',
+  },
   loggerOptions: {
     level: 'debug',
     stringify: false,
