@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import config from './config';
 import logger from './helpers/logger';
 import errorLogger from './middlewares/errorLogger';
 import requestLogger from './middlewares/requestLogger';
@@ -20,7 +21,7 @@ app.use(requestLogger(logger));
 // routes
 app.use('/version', versionRouter);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Started on port ${PORT}`);
+const { port } = config;
+app.listen(port, () => {
+  logger.info(`Started on port ${port}`);
 });

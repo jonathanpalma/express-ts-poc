@@ -1,12 +1,7 @@
 import winston from 'winston';
+import config from '../config';
 
-// TODO: Create a config file
-const loggerOptions = {
-  level: 'debug',
-  stringify: false,
-  json: true,
-  timestamp: true,
-};
+const { loggerOptions } = config;
 
 const logger = winston.createLogger({
   transports: [new winston.transports.Console(loggerOptions)],
