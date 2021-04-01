@@ -32,4 +32,4 @@ const config =
     ? development(commons)
     : production(commons);
 
-export default Object.freeze(Object.assign({}, config));
+export default Object.freeze(config);

@@ -1,7 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "env": {
-    "browser": true,
+    "jest": true,
     "node": true
   },
   "extends": ["airbnb-base", "prettier"],
@@ -9,11 +9,31 @@
   "rules": {
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "_"
+      }
+    ],
     "no-unused-vars": [
       "error",
       {
-        "argsIgnorePattern": "next",
-        "varsIgnorePattern": "Config|Logger|Request|Response|transports"
+        "argsIgnorePattern": "_"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "ts": "never",
+        "js": "never"
       }
     ],
     "prettier/prettier": [
@@ -22,20 +42,14 @@
         "singleQuote": true,
         "trailingComma": "es5"
       }
-    ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true
-      }
     ]
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".ts"]
-      }
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {} // load tsconfig to eslint
     }
   }
 }
