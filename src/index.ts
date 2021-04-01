@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import config from './config';
 import logger from './utils/logger';
 import errorLogger from './middlewares/errorLogger';
 import requestLogger from './middlewares/requestLogger';
@@ -20,7 +19,4 @@ app.use(requestLogger(logger));
 // routes
 app.use('/version', versionRouter);
 
-const { port } = config;
-app.listen(port, () => {
-  logger.info(`Started on port ${port}`);
-});
+export default app;
